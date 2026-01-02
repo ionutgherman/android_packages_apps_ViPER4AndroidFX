@@ -18,26 +18,31 @@ cc_prebuilt_library_shared {
         none: true,
     },
     target: {
-        android_arm: {
-            srcs: ["vendor/lib/soundfx/libv4a_re.so"],
-            shared_libs: [
-                "liblog",
-                "libm",
-                "libdl",
-                "libc",
-            ],
-        },
         android_arm64: {
             srcs: ["vendor/lib64/soundfx/libv4a_re.so"],
-            shared_libs: [
-                "liblog",
-                "libm",
-                "libdl",
-                "libc",
-            ],
+            shared_libs: ["liblog", "libm", "libdl", "libc"],
         },
     },
-    compile_multilib: "both",
+    required: [
+        "libviperaidl",
+    ],
+    ignore_max_page_size: true,
+    vendor: true,
+    relative_install_path: "soundfx",
+}
+
+cc_prebuilt_library_shared {
+    name: "libviperaidl",
+    installable: true,
+    strip: {
+        none: true,
+    },
+    target: {
+        android_arm64: {
+            srcs: ["vendor/lib64/soundfx/libviperaidl.so"],
+            shared_libs: ["android.hardware.audio.effect-V3-ndk", "android.hardware.common-V2-ndk", "android.hardware.common.fmq-V1-ndk", "android.media.audio.common.types-V4-ndk", "libaudio_aidl_conversion_common_ndk", "libaudioaidlcommon", "libaudioutils", "libbase", "libbinder_ndk", "libc++", "libc", "libcutils", "libdl", "libfmq", "liblog", "libm", "libutils"],
+        },
+    },
     vendor: true,
     relative_install_path: "soundfx",
 }
